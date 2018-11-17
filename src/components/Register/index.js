@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { TextInput , Button , FormField , TextInputField, toaster} from 'evergreen-ui'
 import Tabs from '../Tabs/index.js'
@@ -16,7 +15,7 @@ class Register extends Component {
 
   submit = () => {
     console.log(this.state.nickname);
-    if(this.state.nickname == ''){
+    if(this.state.nickname === ''){
       toaster.danger(
       'enter a surname'
     )
@@ -33,7 +32,7 @@ class Register extends Component {
   }
 
   formUI = () => {
-    if (this.state.success == false) {
+    if (this.state.success === false) {
       return (
         <header className="App-header">
           <p>Register </p>

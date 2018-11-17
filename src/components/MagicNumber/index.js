@@ -6,7 +6,7 @@ class MagicNumber extends Component {
   render() {
     return (
       <div className="Games">
-        <p> dede </p>
+        <p> MagicNumber </p>
       </div>
     );
   }
