@@ -16,12 +16,13 @@ class Register extends Component {
 
   super(props);
   this.state = {
-    nickname : '',
+    nickname : 'Jeremy Noh',
     time : 42000,
     start : false,
     secretKey : undefined,
     counterKey : 0,
-    finish : false
+    finish : false,
+    winPLayers : []
   }
 }
 componentDidMount(){
@@ -62,6 +63,7 @@ componentDidMount(){
     this.setState({ finish  })
     console.log("finish");
     this.state.socket.emit("end" )
+    this.alertFinish()
    toaster.success(
       'The Step is Finish',
       {
@@ -71,21 +73,20 @@ componentDidMount(){
   }
 
   alertFinish =() => {
-    return (
-      <Alert
-      appearance="card"
-      intent="none"
-      title="Winner of the manche is ..."
-      marginBottom={10}
-      marginTop={10}
-    />
-    )
+      let {socket, winPLayers } = this.state
+      socket.on("winnerStep", winPLayer => {
+        console.log("jejejejeje");
+        winPLayers.push(winPLayer)
+        console.log(winPLayers);
+        this.setState({ winPLayers})
+      })
   }
 
   startTheGame = () => {
-    this.state.socket.emit("ok")
+    this.state.socket.emit("ok",this.state.nickname)
     let { start, secretKey} = this.state
     start = !start
+    this.setState({start  })
     this.state.socket.on("start", (key) => {
       console.log(`${key}  : is  the secret key`);
       this.setState({start , secretKey : key })
@@ -125,14 +126,27 @@ componentDidMount(){
          >
          <Pane >
          <Heading >
-          {this.state.start === false ?"Waiting ..." : `The letter is ${this.state.secretKey}`}
+          {this.state.secretKey === undefined ?"Waiting ..." : `The letter is ${this.state.secretKey}`}
          </Heading>
            <Button onClick={() => this.startTheGame()} disabled= {this.state.start}>
              START
            </Button>
           </Pane>
          </Card>
-         {this.state.finish && this.alertFinish() }
+         {
+           this.state.winPLayers.map(function(item, i){
+             return (
+                   <Alert
+                   key = {i}
+                   appearance="card"
+                   intent="none"
+                   title={"Winner of the manche is ...      "+item.name}
+                   marginBottom={10}
+                   marginTop={10}
+                 />
+             );
+           })
+         }
        </Pane>
      </SideSheet>
      <Button onClick={() => this.setState({ isShown: true })}>
