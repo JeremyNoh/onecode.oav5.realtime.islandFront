@@ -1,6 +1,6 @@
 import React, { Component , Fragment} from 'react';
 import './App.css';
-import { TextInput , Button , FormField , TextInputField, toaster, SideSheet,Pane,Heading,Paragraph, Card} from 'evergreen-ui'
+import { Alert ,Button  , toaster, SideSheet,Pane,Heading,Paragraph, Card} from 'evergreen-ui'
 // import io from 'socket.io-client';
 import openSocket from 'socket.io-client';
 
@@ -61,12 +61,30 @@ componentDidMount(){
     finish = !finish
     this.setState({ finish  })
     console.log("finish");
-    this.state.socket.emit("end" ) 
+    this.state.socket.emit("end" )
+   toaster.success(
+      'The Step is Finish',
+      {
+        duration: 5
+      }
+    )
+  }
+
+  alertFinish =() => {
+    return (
+      <Alert
+      appearance="card"
+      intent="none"
+      title="Winner of the manche is ..."
+      marginBottom={10}
+      marginTop={10}
+    />
+    )
   }
 
   startTheGame = () => {
     this.state.socket.emit("ok")
-    let { start,    secretKey} = this.state
+    let { start, secretKey} = this.state
     start = !start
     this.state.socket.on("start", (key) => {
       console.log(`${key}  : is  the secret key`);
@@ -105,13 +123,16 @@ componentDidMount(){
            alignItems="center"
            justifyContent="center"
          >
+         <Pane >
          <Heading >
           {this.state.start === false ?"Waiting ..." : `The letter is ${this.state.secretKey}`}
          </Heading>
-           <Button onClick={() => this.startTheGame()} disabled= {this.state.finish}>
+           <Button onClick={() => this.startTheGame()} disabled= {this.state.start}>
              START
            </Button>
+          </Pane>
          </Card>
+         {this.state.finish && this.alertFinish() }
        </Pane>
      </SideSheet>
      <Button onClick={() => this.setState({ isShown: true })}>
