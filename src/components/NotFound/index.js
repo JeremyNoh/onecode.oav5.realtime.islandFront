@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TextInput , Button , FormField , TextInputField, toaster} from 'evergreen-ui'
 import Tabs from '../Tabs/index.js'
 
 class NotFound extends Component {

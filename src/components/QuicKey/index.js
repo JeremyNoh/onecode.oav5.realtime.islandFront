@@ -40,7 +40,10 @@ componentDidMount(){
   gamePlay = () => {
     let { counterKey , secretKey, finish, socket } = this.state
     console.log(finish);
-    setTimeout(() =>{ this.finishGame() }, 3000);
+    socket.on("endChrono", () =>{
+      this.finishGame()
+    })
+
 
       document.addEventListener("keypress",  (event) => {
       if (!this.state.finish) {
@@ -62,7 +65,6 @@ componentDidMount(){
     finish = !finish
     this.setState({ finish  })
     console.log("finish");
-    this.state.socket.emit("end" )
     this.alertFinish()
    toaster.success(
       'The Step is Finish',
@@ -75,7 +77,6 @@ componentDidMount(){
   alertFinish =() => {
       let {socket, winPLayers } = this.state
       socket.on("winnerStep", winPLayer => {
-        console.log("jejejejeje");
         winPLayers.push(winPLayer)
         console.log(winPLayers);
         this.setState({ winPLayers})
@@ -84,7 +85,7 @@ componentDidMount(){
 
   startTheGame = () => {
     this.state.socket.emit("ok",this.state.nickname)
-    let { start, secretKey} = this.state
+    let { start} = this.state
     start = !start
     this.setState({start  })
     this.state.socket.on("start", (key) => {
@@ -97,7 +98,7 @@ componentDidMount(){
 
  contentPlay = () =>{
    return (
-     <React.Fragment>
+     <Fragment>
      <SideSheet
        isShown={this.state.isShown}
        onCloseComplete={() => this.setState({ isShown: false })}
@@ -152,7 +153,7 @@ componentDidMount(){
      <Button onClick={() => this.setState({ isShown: true })}>
        Go PLay
      </Button>
-   </React.Fragment>
+   </Fragment>
    )
  }
 
@@ -160,6 +161,7 @@ componentDidMount(){
     return (
       <div className="App">
       <div className="App-header">
+      <Tabs/>
       <p>QuickKey </p>
         {this.contentPlay()}
       </div>

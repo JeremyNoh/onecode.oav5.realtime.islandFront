@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { TabNavigation , Tab } from 'evergreen-ui'
 import Tabs from '../Tabs/index.js'
 
 class App extends Component {
@@ -14,11 +12,8 @@ class App extends Component {
 }
 
   componentWillMount(){
-    // const tete = "dede"
-    // const tabs = ['Docs', 'MagicNumber', 'KeyFast','KeyWord','jsp']
   }
   render() {
-    console.log(this.state.tabs);
     return (
       <div className="App">
 
