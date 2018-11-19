@@ -25,7 +25,7 @@ class Register extends Component {
     winPLayers : []
   }
 }
-componentDidMount(){
+componentWillMount(){
   // const socket = io('http://localhost:5000');
   let { nickname } = this.state
   if (!(this.props.location.state == undefined)) {
@@ -36,7 +36,7 @@ componentDidMount(){
   }
   this.setState({ nickname })
 
-  const socket = openSocket('http://localhost:5000');
+  const socket = openSocket('http://localhost:5000/QuicKey');
 
   this.setState({socket})
   // socket.on('connect', function(){});

@@ -22,7 +22,7 @@ class MagicNumber extends Component {
   // React.cloneElement(this.props.children, { data: this.state.data, setData: this.updateData })
 }
 
-componentDidMount(){
+componentWillMount(){
   // const socket = io('http://localhost:5000');
   let { nickname } = this.state
   if (!(this.props.location.state == undefined)) {
@@ -74,7 +74,7 @@ infoForPlayer = (str) => {
 }
 
 tryNumber = () => {
-  this.state.socket.emit("number",this.state.numberTry)
+  this.state.socket.emit("beginGame",this.state.numberTry)
   this.messageEmit()
 }
 

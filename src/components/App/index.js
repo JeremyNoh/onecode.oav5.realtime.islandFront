@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-// import Tabs from '../Tabs/index.js'
+import Tabs from '../Tabs/index.js'
 
 class App extends Component {
 
@@ -12,22 +12,45 @@ class App extends Component {
 }
 
   componentWillMount(){
+    let { nickname } = this.state
+    if (!(this.props.location.state == undefined)) {
+      nickname = this.props.location.state.nickname.nickname
+      this.setState({ nickname })
+    }
   }
+
+  isConnected = () => {
+    if (this.state.nickname) {
+      return(
+        <p> Choose your game {this.state.nickname } </p>
+      );
+    }
+    else {
+      return(
+        <a
+          className="App-link"
+          href="Register"
+          rel="noopener noreferrer"
+        >
+           First Register
+        </a>
+      )
+    }
+  }
+
+
   render() {
     return (
       <div className="App">
 
         <header className="App-header">
+         {this.state.nickname ? <Tabs nickname={this.state.nickname} /> : null}
+
           <p>
-            Bonjour et bienvnu sur  <code>Jeu.io</code>
+            Bonjour et bienvenu sur  <code>Jeu.io</code>
           </p>
-          <a
-            className="App-link"
-            href="Register"
-            rel="noopener noreferrer"
-          >
-             First Register
-          </a>
+
+          {this.isConnected()}
         </header>
       </div>
     );

@@ -24,28 +24,29 @@ class FastKey extends Component {
     wordTry : undefined
   }
 }
-componentDidMount(){
 
-  let { nickname } = this.state
-  if (!(this.props.location.state == undefined)) {
-    nickname = this.props.location.state.nickname.nickname
-  }
-  else{
-    nickname = 'unknownPLayer'
-  }
-  this.setState({ nickname })
-  // const socket = io('http://localhost:5000');
-  const socket = openSocket('http://localhost:5000/fastkey');
-  socket.emit("join", this.state.nickname)
-  socket.on("welcome", str => {
-    toaster.success(
-       str,
-       {
-         duration: 5
-       }
-     )
-  })
-  this.setState({socket})
+componentWillMount(){
+
+    let { nickname } = this.state
+    if (!(this.props.location.state == undefined)) {
+      nickname = this.props.location.state.nickname.nickname
+    }
+    else{
+      nickname = 'unknownPLayer'
+    }
+    this.setState({ nickname })
+    // const socket = io('http://localhost:5000');
+    const socket = openSocket('http://localhost:5000/fastkey');
+    socket.emit("join", nickname)
+    socket.on("welcome", str => {
+      toaster.success(
+         str,
+         {
+           duration: 5
+         }
+       )
+    })
+    this.setState({socket})
 }
 
 
@@ -57,14 +58,24 @@ startTheGame = () => {
   socket.on("start", () => {
 
   })
+  this.beginGame()
   start = !start
   this.setState({start})
 }
 
-messageEmit = () => {
-  let { socket ,msgDetail } = this.state
-  socket.on("magicNumberMessage", str => {
-     this.teste(str)
+// messageEmit = () => {
+//   let { socket ,msgDetail } = this.state
+//   socket.on("fastKeyMessage", str => {
+//     console.log(str);
+//      // this.teste(str)
+//   })
+// }
+
+beginGame = () => {
+  let {  socket } = this.state
+  socket.on("fastKeyMessage", (word) => {
+    console.log("jejej : ", word);
+    this.setState({ wordToWrite :word})
   })
 }
 
@@ -75,7 +86,7 @@ teste = (str) => {
 }
 
 tryWord = () => {
-  this.state.socket.emit("number",this.state.wordPlayer)
+  this.state.socket.emit("beginGame",this.state.wordPlayer)
   this.messageEmit()
 }
 
@@ -99,7 +110,7 @@ inputPlayerUI = () => {
   if (this.state.start) {
     return (
       <Pane >
-      <Heading marginBottom= {10}> the word is ..... { this.state.wordToWrite}</Heading>
+      <Heading marginBottom= {10}> { this.state.wordToWrite}</Heading>
         <TextInput
           label="A controlled text input field"
           required
@@ -111,6 +122,19 @@ inputPlayerUI = () => {
        </Pane >
     )
   }
+}
+findWord = () => {
+  let { wordToWrite ,socket } = this.state
+  // socket.on("messageMagic", (wordToWrite) => {
+  //   console.log(wordToWrite);
+  //    this.setState({wordToWrite })
+  // })
+
+  socket.on("messageMagic", (word) => {
+    console.log("jejej : ", word);
+    this.setState({ wordToWrite : word})
+  })
+
 }
 
 
@@ -145,7 +169,7 @@ inputPlayerUI = () => {
          >
           {this.beforeStart()}
           {this.inputPlayerUI()}
-
+          {this.findWord()}
          </Card>
          {
            this.state.msgDetail.map(function(item, i){
@@ -172,6 +196,7 @@ inputPlayerUI = () => {
 
   render() {
     return (
+
       <div className="App">
       <div className="App-header">
       <Tabs nickname={this.state.nickname} />
