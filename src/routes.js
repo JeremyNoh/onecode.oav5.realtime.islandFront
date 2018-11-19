@@ -11,6 +11,7 @@ import Games from './components/Games';
 import MagicNumber from './components/MagicNumber';
 import Register from './components/Register';
 import QuicKey from './components/QuicKey';
+import FastKey from './components/FastKey';
 
 
 
@@ -23,6 +24,8 @@ const MyRoute = () => (
         <Route exact path="/register" component={Register} />
         <Route exact path="/quicKey" component={QuicKey} />
         <Route exact path="/magic" component={MagicNumber} />
+        <Route exact path="/FastKey" component={FastKey} />
+
         <Route component={NotFound} />
       </Switch>
   </Router>

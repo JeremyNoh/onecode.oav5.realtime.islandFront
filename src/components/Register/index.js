@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import './App.css';
 import { TextInput , Button , FormField , toaster} from 'evergreen-ui'
 import Tabs from '../Tabs/index.js'
+import {
+  Link
+} from 'react-router-dom';
+
 
 class Register extends Component {
 
@@ -14,7 +18,6 @@ class Register extends Component {
 }
 
   submit = () => {
-    console.log(this.state.nickname);
     if(this.state.nickname === ''){
       toaster.danger(
       'enter a surname'
@@ -55,7 +58,7 @@ class Register extends Component {
       if (this.state.success) {
         return(
           <header className="App-header">
-            <Tabs />
+            <Tabs nickname={this.state.nickname} />
             <p>Select Your game </p>
           </header>
         )

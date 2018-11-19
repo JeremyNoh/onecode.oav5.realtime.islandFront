@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Tabs from '../Tabs/index.js'
+// import Tabs from '../Tabs/index.js'
 
 class App extends Component {
 
@@ -18,7 +18,6 @@ class App extends Component {
       <div className="App">
 
         <header className="App-header">
-          <Tabs/>
           <p>
             Bonjour et bienvnu sur  <code>Jeu.io</code>
           </p>

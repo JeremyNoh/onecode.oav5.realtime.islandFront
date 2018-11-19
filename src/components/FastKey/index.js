@@ -3,27 +3,29 @@ import './App.css';
 import { Alert ,Button  , toaster, SideSheet,Pane,Heading,Paragraph, Card, TextInput} from 'evergreen-ui'
 // import io from 'socket.io-client';
 import openSocket from 'socket.io-client';
-
-
 import Tabs from '../Tabs/index.js'
 
-class MagicNumber extends Component {
+class FastKey extends Component {
 
 
   constructor(props) {
+
+
+
   super(props);
   this.state = {
     nickname : undefined,
+    time : 42000,
     start : false,
-    secretNumber : undefined,
+    wordToWrite : undefined,
+    wordPlayer : undefined,
+    finish : false,
     msgDetail : [],
-    numberTry : 0
+    wordTry : undefined
   }
-  // React.cloneElement(this.props.children, { data: this.state.data, setData: this.updateData })
 }
-
 componentDidMount(){
-  // const socket = io('http://localhost:5000');
+
   let { nickname } = this.state
   if (!(this.props.location.state == undefined)) {
     nickname = this.props.location.state.nickname.nickname
@@ -32,9 +34,9 @@ componentDidMount(){
     nickname = 'unknownPLayer'
   }
   this.setState({ nickname })
-
-  const socket = openSocket('http://localhost:5000/magic');
-  socket.emit("join", nickname)
+  // const socket = io('http://localhost:5000');
+  const socket = openSocket('http://localhost:5000/fastkey');
+  socket.emit("join", this.state.nickname)
   socket.on("welcome", str => {
     toaster.success(
        str,
@@ -61,20 +63,19 @@ startTheGame = () => {
 
 messageEmit = () => {
   let { socket ,msgDetail } = this.state
-  let stre ;
   socket.on("magicNumberMessage", str => {
-    this.infoForPlayer(str)
+     this.teste(str)
   })
 }
 
-infoForPlayer = (str) => {
+teste = (str) => {
   let { msgDetail } = this.state
   msgDetail.push(str)
   this.setState({msgDetail})
 }
 
-tryNumber = () => {
-  this.state.socket.emit("number",this.state.numberTry)
+tryWord = () => {
+  this.state.socket.emit("number",this.state.wordPlayer)
   this.messageEmit()
 }
 
@@ -83,7 +84,7 @@ beforeStart = () => {
     return(
       <Pane >
       <Heading >
-       {this.state.secretNumber === undefined ?"Waiting ..." : `Find me`}
+       Waiting ...
       </Heading>
         <Button onClick={() => this.startTheGame()} disabled= {this.state.start}>
           START
@@ -98,16 +99,15 @@ inputPlayerUI = () => {
   if (this.state.start) {
     return (
       <Pane >
-      <Heading> Select a number beetween 0 and 1337</Heading>
+      <Heading marginBottom= {10}> the word is ..... { this.state.wordToWrite}</Heading>
         <TextInput
-          label="try your number"
+          label="A controlled text input field"
           required
-          type = "number"
-          description="This is for the PLayer..."
-          value={this.state.numberTry}
-          onChange={e => this.setState({ numberTry: e.target.value })}
+          description="This is a description."
+          value={this.state.wordPlayer || ''}
+          onChange={e => this.setState({ wordPlayer: e.target.value })}
         />
-        <Button marginRight={16} appearance="primary" intent="success" onClick={this.tryNumber}>Submit</Button>
+        <Button marginRight={16} appearance="primary" intent="success" onClick={this.tryWord}>Submit</Button>
        </Pane >
     )
   }
@@ -130,7 +130,7 @@ inputPlayerUI = () => {
          <Pane padding={16}>
            <Heading size={600}>Welcome to the Game </Heading>
            <Paragraph size={400}>
-            Rules : generate a random number and you need toguess the number
+            Rules : write quickly the random word
            </Paragraph>
          </Pane>
        </Pane>
@@ -154,7 +154,7 @@ inputPlayerUI = () => {
                    key = {i}
                    appearance="card"
                    intent="none"
-                   title={"the number is :  "+item}
+                   title={"Winner of the manche is ...      "+item}
                    marginBottom={10}
                    marginTop={10}
                  />
@@ -175,7 +175,7 @@ inputPlayerUI = () => {
       <div className="App">
       <div className="App-header">
       <Tabs nickname={this.state.nickname} />
-        <p>MagicNumber </p>
+        <p>FastKey </p>
         {this.contentPlay()}
       </div>
       </div>
@@ -183,4 +183,4 @@ inputPlayerUI = () => {
   }
 }
 
-export default MagicNumber;
+export default FastKey;

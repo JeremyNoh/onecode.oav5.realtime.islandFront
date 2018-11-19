@@ -16,7 +16,7 @@ class Register extends Component {
 
   super(props);
   this.state = {
-    nickname : 'Jeremy Noh',
+    nickname : undefined,
     time : 42000,
     start : false,
     secretKey : undefined,
@@ -27,6 +27,15 @@ class Register extends Component {
 }
 componentDidMount(){
   // const socket = io('http://localhost:5000');
+  let { nickname } = this.state
+  if (!(this.props.location.state == undefined)) {
+    nickname = this.props.location.state.nickname.nickname
+  }
+  else{
+    nickname = 'unknownPLayer'
+  }
+  this.setState({ nickname })
+
   const socket = openSocket('http://localhost:5000');
 
   this.setState({socket})
@@ -161,7 +170,7 @@ componentDidMount(){
     return (
       <div className="App">
       <div className="App-header">
-      <Tabs/>
+      <Tabs nickname={this.state.nickname} />
       <p>QuickKey </p>
         {this.contentPlay()}
       </div>
