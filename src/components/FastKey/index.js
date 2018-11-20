@@ -119,9 +119,7 @@ class FastKey extends Component {
     ) {
       return (
         <Pane>
-          <Heading marginBottom={10}>
-            {this.state.wordToWrite},congratulations!!
-          </Heading>
+          <Heading marginBottom={10}>{this.state.wordToWrite}</Heading>
         </Pane>
       );
     } else if (this.state.wordToWrite === "waiting other player") {
