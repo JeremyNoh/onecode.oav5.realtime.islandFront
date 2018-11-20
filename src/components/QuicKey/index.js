@@ -28,7 +28,7 @@ class Register extends Component {
 componentWillMount(){
   // const socket = io('http://localhost:5000');
   let { nickname } = this.state
-  if (!(this.props.location.state == undefined)) {
+  if (!(this.props.location.state === undefined)) {
     nickname = this.props.location.state.nickname.nickname
   }
   else{

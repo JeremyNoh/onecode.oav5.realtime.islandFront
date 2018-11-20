@@ -32,7 +32,7 @@ class MagicNumber extends Component {
   componentWillMount() {
     // const socket = io('http://localhost:5000');
     let { nickname } = this.state;
-    if (!(this.props.location.state == undefined)) {
+    if (!(this.props.location.state ===  undefined)) {
       nickname = this.props.location.state.nickname.nickname;
     } else {
       nickname = "unknownPLayer";
@@ -59,22 +59,42 @@ class MagicNumber extends Component {
   };
 
   messageEmit = () => {
-    let { socket, msgDetail } = this.state;
+    let { socket } = this.state;
     let MessageNumber = 0;
     socket.on("magicNumberMessage", str => {
       if (MessageNumber < 1) {
         this.infoForPlayer(str);
-        console.log(this.state.msgDetail);
         MessageNumber++;
       }
     });
   };
 
+
+
   infoForPlayer = str => {
     let { msgDetail } = this.state;
+    if (str.substring(0, 7) === "You win") {
+      msgDetail =  []
+    }
+    else if (str.substring(0, 16) === "The Game is over") {
+      msgDetail =  []
+      this.finishTheGame()
+    }
+    else {
+       str  = "the number is :  "+str
+    }
     msgDetail.push(str);
     this.setState({ msgDetail });
   };
+
+  finishTheGame = () => {
+    let { start } = this.state
+    start = !start
+    this.setState({start})
+    toaster.success("The Game is over , change plays or refresh ", {
+      duration: 5
+    });
+  }
 
   tryNumber = () => {
     this.state.socket.emit("beginGame", this.state.numberTry);
@@ -163,7 +183,7 @@ class MagicNumber extends Component {
                   key={i}
                   appearance="card"
                   intent="none"
-                  title={"the number is :  " + item}
+                  title={item}
                   marginBottom={10}
                   marginTop={10}
                 />

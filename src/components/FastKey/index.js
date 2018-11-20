@@ -32,7 +32,7 @@ class FastKey extends Component {
 
   componentWillMount() {
     let { nickname } = this.state;
-    if (!(this.props.location.state == undefined)) {
+    if (!(this.props.location.state === undefined)) {
       nickname = this.props.location.state.nickname.nickname;
     } else {
       nickname = "unknownPLayer";

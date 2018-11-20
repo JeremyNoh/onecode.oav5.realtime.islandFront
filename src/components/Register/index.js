@@ -2,9 +2,6 @@ import React, { Component} from 'react';
 import './App.css';
 import { TextInput , Button , FormField , toaster} from 'evergreen-ui'
 import Tabs from '../Tabs/index.js'
-import {
-  Link
-} from 'react-router-dom';
 
 
 class Register extends Component {
