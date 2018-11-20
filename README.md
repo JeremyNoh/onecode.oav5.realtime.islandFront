@@ -1,3 +1,6 @@
+
+# Projet de jeu en Temps Réel / Socket.io
+
 Le but du projet est de concevoir une Plateforme de jeu en temps Réel / socket.io 
 Vous etês sur le repositorie du FRONT réalisé en  React.js  pour l'installer / le lancer merci de suivre .
 - Git clone [https://github.com/JeremyNoh/onecode.oav5.realtime.islandFront.git](https://github.com/JeremyNoh/onecode.oav5.realtime.islandFront.git)
@@ -7,9 +10,7 @@ Vous etês sur le repositorie du FRONT réalisé en  React.js  pour l'installer 
 
 Attention : n'oubliez d'aller voir le projet Back pour le lancer en local !! 
 
-Pour Accéder / Télécharger le back merci de vous rendre sur le repo Back de mon binôme[https://github.com/madjidYacini/onecode.oav5.realtime.island](https://github.com/madjidYacini/onecode.oav5.realtime.island)
-
-# Projet de jeu en Temps Réel / Socket.io
+Pour Accéder / Télécharger le back merci de vous rendre sur le repo Back de mon binôme [https://github.com/madjidYacini/onecode.oav5.realtime.island](https://github.com/madjidYacini/onecode.oav5.realtime.island)
 
 ## Présentation 
 
