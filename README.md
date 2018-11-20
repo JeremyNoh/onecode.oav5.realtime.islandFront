@@ -1,35 +1,51 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Le but du projet est de concevoir une Plateforme de jeu en temps Réel / socket.io 
+Vous etês sur le repositorie du FRONT réalisé en  React.js  pour l'installer / le lancer merci de suivre .
+- Git clone [https://github.com/JeremyNoh/onecode.oav5.realtime.islandFront.git](https://github.com/JeremyNoh/onecode.oav5.realtime.islandFront.git)
+- npm install
+- npm start 
+- Go to your brower ==> http://localhost:3000/
 
-## Available Scripts
+Attention : n'oubliez d'aller voir le projet Back pour le lancer en local !! 
 
-In the project directory, you can run:
+Pour Accéder / Télécharger le back merci de vous rendre sur le repo Back de mon binôme[https://github.com/madjidYacini/onecode.oav5.realtime.island](https://github.com/madjidYacini/onecode.oav5.realtime.island)
 
-### `npm start`
+# Projet de jeu en Temps Réel / Socket.io
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Présentation 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Accéder a la Plateforme de jeu en ligne grâce a un surname puis jouer à des jeux en multijoueurs en temps réel ,  amusant non ? 
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Créer & réaliser par
+*  [Jeremy Nohile](http://jeremynohile.890m.com/)
+*  [Madjid Yacini](https://github.com/madjidYacini?tab=repositories)
 
 
-**Note:**
 
-By :
-jeremy Noh
-and Madjid Yacini
+## Fonctionnalité
+
+### USER 
+- Register 
+- Choisit ton jeu parmi un catalogue en ligne ... 
+- 3 games disponible pour l'instant 
+
+
+### MagicNumber
+
+Règle : trouve un nombre entre 0 && 1337 
+
+
+### FastKey 
+
+Règle : le premier qui ecrit le mot afficher l'emporte 
+attention il y a des manches !! 
+
+### FastKey 
+
+Règle : Une Lettre apparraît ... ton but la presser le plus possible !!!  
+  
+
+note : coté FRONT, uniquement les routes : /register | /magic | /quicKey | /FastKey  sont dispo  mais pas d'inquiétude il y a un menu 
+
+Merci à vous  😉
+
+
